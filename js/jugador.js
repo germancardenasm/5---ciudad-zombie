@@ -13,7 +13,6 @@ var Jugador = {
   // Hay que agregar lo que falte al jugador: movimientos, perdida de vidas,
   // y todo lo que haga falta para que cumpla con sus responsabilidades
   moverse: function(movX, movY,tecla){
-    
   
     switch(tecla){
       case "izq": 
@@ -39,8 +38,12 @@ var Jugador = {
     }
     Jugador.x+=movX;
     Jugador.y+=movY;
-  }
+  },
   
+  perderVidas: function(vidasPerdidas){
+    Jugador.vidas-=vidasPerdidas;
+  }
+
 
 }
 

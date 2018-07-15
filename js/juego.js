@@ -20,11 +20,18 @@ var Juego = {
   obstaculosCarretera: [
     /*Aca se van a agregar los obstaculos visibles. Tenemos una valla horizontal
     de ejemplo, pero podras agregar muchos mas. */
+    //vallas
     new Obstaculo('imagenes/valla_horizontal.png', 70, 430, 30, 30, 1),
     new Obstaculo('imagenes/valla_horizontal.png', 510, 250, 30, 30, 1),
     new Obstaculo('imagenes/valla_horizontal.png', 800, 230, 30, 30, 1),
     new Obstaculo('imagenes/valla_vertical.png', 350, 400, 30, 30, 1),
-    new Obstaculo('imagenes/valla_vertical.png', 450, 80, 30, 30, 1)
+    new Obstaculo('imagenes/valla_vertical.png', 450, 80, 30, 30, 1),
+    //baches
+    new Obstaculo('imagenes/bache.png', 490, 450, 30, 30, 1),
+    new Obstaculo('imagenes/bache.png', 280, 180, 30, 30, 1),
+    //autos descompuestos
+    new Obstaculo('imagenes/auto_verde_derecha.png', 400, 490, 30, 15, 1),
+    new Obstaculo('imagenes/auto_verde_abajo.png', 870, 400, 15, 30, 1)
   ],
   /* Estos son los bordes con los que se puede chocar, por ejemplo, la vereda.
    Ya estan ubicados en sus lugares correspondientes. Ya aparecen en el mapa, ya
@@ -137,7 +144,6 @@ Juego.capturarMovimiento = function(tecla) {
     /* Aca tiene que estar la logica para mover al jugador invocando alguno
     de sus metodos  */
       this.jugador.moverse(movX,movY,tecla);
-
     /* COMPLETAR */
   }
 };
@@ -176,7 +182,6 @@ Juego.dibujar = function() {
 };
 
 
-
 /* Recorre los enemigos haciendo que se muevan. De la misma forma que hicimos
 un recorrido por los enemigos para dibujarlos en pantalla ahora habra que hacer
 una funcionalidad similar pero para que se muevan.*/
@@ -208,9 +213,9 @@ Juego.chequearColisiones = function(x, y) {
   var puedeMoverse = true
   this.obstaculos().forEach(function(obstaculo) {
     if (this.intersecan(obstaculo, this.jugador, x, y)) {
-
       /*COMPLETAR, obstaculo debe chocar al jugador*/
-
+      obstaculo.chocar(this.jugador, obstaculo.potencia);
+      obstaculo.potencia=0;
       puedeMoverse = false
     }
   }, this)
