@@ -214,7 +214,7 @@ Juego.chequearColisiones = function(x, y) {
   this.obstaculos().forEach(function(obstaculo) {
     if (this.intersecan(obstaculo, this.jugador, x, y)) {
       /*COMPLETAR, obstaculo debe chocar al jugador*/
-      obstaculo.chocar(this.jugador, obstaculo.potencia);
+      obstaculo.chocar(this.jugador);
       obstaculo.potencia=0;
       puedeMoverse = false
     }
