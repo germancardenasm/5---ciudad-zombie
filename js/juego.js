@@ -104,8 +104,18 @@ Juego.comenzar = function() {
   this.buclePrincipal();
 };
 
-Juego.buclePrincipal = function() {
+Juego.dibujarMeta = function(){
+  
+  for(var i=758; i<880; (i+=20))
+  {
+    Dibujante.dibujarRectangulo("yellow",i, 535, 10,10);
+    if(i<870){
+      Dibujante.dibujarRectangulo("yellow",i+10, 545, 10,10);
+    }
+  }
+}
 
+Juego.buclePrincipal = function() {
   // Con update se actualiza la logica del juego, tanto ataques como movimientos
   this.update();
   // Funcion que dibuja por cada fotograma a los objetos en pantalla.
@@ -179,7 +189,10 @@ Juego.dibujar = function() {
     var x = tamanio * i
     Dibujante.dibujarRectangulo('red', x, 0, tamanio, 8);
   }
+
+  Juego.dibujarMeta();
 };
+
 
 
 /* Recorre los enemigos haciendo que se muevan. De la misma forma que hicimos
