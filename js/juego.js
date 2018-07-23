@@ -53,11 +53,15 @@ var Juego = {
     new Obstaculo('', 887, 79, 56, 480, 2)
   ],
   // Los enemigos se agregaran en este arreglo.
+  //rango {desdeX: valor, hastaX: valor, desdeY: valor, hastaY: valor}
   enemigos: [
-    new Enemigo('imagenes/zombie1.png', 290, 430, 10, 10, 1),
-    new Enemigo('imagenes/zombie2.png', 350, 230, 10, 10, 2),
-    new Enemigo('imagenes/zombie3.png', 570, 450, 10, 10, 1),
-    new Enemigo('imagenes/zombie4.png', 800, 120, 10, 10, 4),
+    new ZombieCaminante('imagenes/zombie1.png', 290, 430, 10, 10, 3, {"desdeX": 0, "hastaX": 961, "desdeY": 0, "hastaY": 577}),
+    new ZombieCaminante('imagenes/zombie2.png', 350, 230, 10, 10, 2, {"desdeX": 0, "hastaX": 961, "desdeY": 0, "hastaY": 577}),
+    new ZombieCaminante('imagenes/zombie3.png', 570, 450, 10, 10, 4, {"desdeX": 0, "hastaX": 961, "desdeY": 0, "hastaY": 577}),
+    new ZombieCaminante('imagenes/zombie4.png', 800, 120, 10, 10, 5,{"desdeX": 0, "hastaX": 961, "desdeY": 0, "hastaY": 577}),
+    new ZombieConductor('imagenes/tren_horizontal.png', 400, 322, 90, 30, 10,{"desde": -250, "hasta": 1100},"H"),  
+    new ZombieConductor('imagenes/tren_vertical.png', 644, 0, 30, 90, 5,{"desde": -250, "hasta": 850},"V"),
+    new ZombieConductor('imagenes/tren_vertical.png', 678, 0, 30, 90, 7,{"desde": -250, "hasta": 850},"V")
   ]
 
 }
@@ -126,7 +130,10 @@ Juego.buclePrincipal = function() {
 
 Juego.update = function() {
   this.calcularAtaques();
-  this.moverEnemigos();
+  if(this.jugador.vidas>0){
+    this.moverEnemigos();
+  }
+  
 }
 // Captura las teclas y si coincide con alguna de las flechas tiene que
 // hacer que el jugador principal se mueva
@@ -200,7 +207,11 @@ un recorrido por los enemigos para dibujarlos en pantalla ahora habra que hacer
 una funcionalidad similar pero para que se muevan.*/
 Juego.moverEnemigos = function() {
   /* COMPLETAR */
-};
+  Juego.enemigos.forEach(function(elEnemigo){
+    elEnemigo.mover();
+
+  })
+ };
 
 /* Recorre los enemigos para ver cual esta colisionando con el jugador
 Si colisiona empieza el ataque el zombie, si no, deja de atacar.
@@ -211,9 +222,11 @@ Juego.calcularAtaques = function() {
     if (this.intersecan(enemigo, this.jugador, this.jugador.x, this.jugador.y)) {
       /* Si el enemigo colisiona debe empezar su ataque
       COMPLETAR */
+      enemigo.comenzarAtaque(this.jugador);
     } else {
       /* Sino, debe dejar de atacar
       COMPLETAR */
+      enemigo.dejarDeAtacar();
     }
   }, this);
 };
