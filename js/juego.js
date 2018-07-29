@@ -121,11 +121,15 @@ Juego.dibujarMeta = function(){
 
 Juego.buclePrincipal = function() {
   // Con update se actualiza la logica del juego, tanto ataques como movimientos
-  this.update();
-  // Funcion que dibuja por cada fotograma a los objetos en pantalla.
-  this.dibujar();
-  // Esto es una forma de llamar a la funcion Juego.buclePrincipal() repetidas veces
-  window.requestAnimationFrame(this.buclePrincipal.bind(this));
+    
+    this.update();
+    // Funcion que dibuja por cada fotograma a los objetos en pantalla.
+    this.dibujar();
+
+    // Esto es una forma de llamar a la funcion Juego.buclePrincipal() repetidas veces
+    window.requestAnimationFrame(this.buclePrincipal.bind(this));
+    
+
 };
 
 Juego.update = function() {
@@ -209,7 +213,6 @@ Juego.moverEnemigos = function() {
   /* COMPLETAR */
   Juego.enemigos.forEach(function(elEnemigo){
     elEnemigo.mover();
-
   })
  };
 
@@ -230,6 +233,7 @@ Juego.calcularAtaques = function() {
     }
   }, this);
 };
+
 
 
 
@@ -300,6 +304,6 @@ document.addEventListener('keydown', function(e) {
     39: 'der',
     40: 'abajo'
   };
-
   Juego.capturarMovimiento(allowedKeys[e.keyCode]);
+  
 });
